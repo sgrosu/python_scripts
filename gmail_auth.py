@@ -15,6 +15,7 @@ def send_email(user, pwd, recipient, subject, body):
     """ % (FROM, ", ".join(TO), SUBJECT, TEXT)
     try:
         server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.set_debuglevel(1)
         server.ehlo()
         server.starttls()
         server.ehlo()
@@ -25,4 +26,4 @@ def send_email(user, pwd, recipient, subject, body):
     except smtplib.SMTPException as e:
         print "failed to send mail", e
 
-send_email('dumblinuxuser@gmail.com','Alinian123','sebastian@winonaesolutions.net','testind SMTP auth', 'This is just a test. We will see how it goes.')
+send_email('dumblinuxuser@gmail.com','Alinian123','sebastian@winonaesolutions.net','testing SMTP auth', 'This is just a second test. We will see how it goes.')
