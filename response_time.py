@@ -4,7 +4,7 @@ import urllib
 import requests
 import time
 
-url = 'http://ukcisa.org.uk'
+url = 'http://winonaesolutions.co.uk'
 nf = urllib.urlopen(url)
 start = time.time()
 print start
