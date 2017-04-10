@@ -3,7 +3,7 @@
 import poplib
 
 username = 'sebastian@winonaesolutions.net'
-passwd = 'Astoreth1'
+passwd = '*'
 mail_server = 'mail.office365.com'
 
 p = poplib.POP3(mail_server)

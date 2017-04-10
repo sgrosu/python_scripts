@@ -1,1 +1,11 @@
-SET PASSWORD FOR 'root'@'localhost' = PASSWORD('Astoreth1');
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('*');
+
+UPDATE mysql.user
+    SET authentication_string = PASSWORD('*'), password_expired = 'N'
+    WHERE User = 'root' AND Host = 'localhost';
+FLUSH PRIVILEGES;
+
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('MyNewPass');
+
+
+GRANT ALL PRIVILEGES ON *.* TO 'sgrosu'@'localhost' WITH GRANT OPTION;
