@@ -9,3 +9,32 @@ SET PASSWORD FOR 'root'@'localhost' = PASSWORD('MyNewPass');
 
 
 GRANT ALL PRIVILEGES ON *.* TO 'sgrosu'@'localhost' WITH GRANT OPTION;
+
+SELECT
+				concat(table_schema,	'.',	table_name)	tbl,
+				engine,
+				concat(round(table_rows/1000000,2),'M')	rows,
+				concat(round(data_length/(1024*1024*1024),2),'G')	DATA,
+				concat(round(index_length/(1024*1024*1024),2),'G')	idx,
+				concat(round((data_length+index_length)/
+								(1024*1024*1024),2),'G')	total_size,
+				round(index_length/data_length,2)	idxfrac
+	FROM	information_schema.TABLES
+ORDER	BY	data_length+index_length	DESC;
+
+# databases toatal size
+
+SELECT table_schema AS "Database", 
+ROUND(SUM(data_length + index_length) / 1024 / 1024, 2) AS "Size (MB)" 
+FROM information_schema.TABLES 
+GROUP BY table_schema;
+
+# average time on queries per databases
+
+SELECT schema_name
+     , SUM(count_star) count
+     , ROUND(   (SUM(sum_timer_wait) / SUM(count_star))
+              / 1000000) AS avg_microsec
+  FROM performance_schema.events_statements_summary_by_digest
+ WHERE schema_name IS NOT NULL
+ GROUP BY schema_name;
