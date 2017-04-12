@@ -12,7 +12,7 @@ if __name__ == "__main__":
 	s = paramiko.SSHClient()
 	s.load_system_host_keys()
 	s.connect(hostname,port,user,passw)
-	stdin,stdout,stderr = s.exec_command("ifconfig eth0")
+	stdin,stdout,stderr = s.exec_command("sudo shutdown -h now")
 	print stdout.read()
 	print stderr.read()
 	s.close()
